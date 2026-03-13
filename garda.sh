@@ -1,13 +1,15 @@
 #!/bin/bash
-# Script: garda.sh
-# Rol: Verifică dacă Nginx rulează și îl repornește dacă e picat
 
-SERVICIU="nginx"
+# Folderul firmei tale de agricultură
+LOG_FILE="/home/alex/gemini/irigatii_afine.log"
 
-if systemctl is-active --quiet $SERVICIU; then
-    echo "$(date): $SERVICIU funcționează corect."
+echo "$(date): Verificare automată sistem irigații..." >> $LOG_FILE
+
+# Simulăm o verificare: dacă sistemul de apă e pornit
+STARE_POMPA="activa"
+
+if [ "$STARE_POMPA" == "activa" ]; then
+    echo "$(date): Pompa funcționează. Afinele sunt udate." >> $LOG_FILE
 else
-    echo "$(date): ALARMĂ - $SERVICIU este picat! Se încearcă restartarea..."
-    sudo systemctl restart $SERVICIU
-    echo "$(date): Procedură finalizată."
+    echo "$(date): ALARMĂ! Pompa este oprită. Verifică sursa de curent!" >> $LOG_FILE
 fi
